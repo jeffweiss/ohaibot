@@ -25,10 +25,14 @@ defmodule ConnectionHandler do
     {:noreply, state}
   end
 
+  def handle_info(:disconnected, state) do
+    ExIrc.Client.connect! state.client, state.host, state.port
+  end
+
   # Catch-all for messages you don't care about
   def handle_info(msg, state) do
-    debug "Received unknown messsage:"
-    IO.inspect msg
+    #debug "Received unknown message:"
+    #IO.inspect msg
     {:noreply, state}
   end
 
