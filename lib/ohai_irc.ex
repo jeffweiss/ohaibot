@@ -14,7 +14,9 @@ defmodule OhaiIrc do
       worker(LoginHandler, [client, ["#ohaibot-testing"]]),
       worker(Bot.Ohai, [client]),
       worker(Bot.Karma, [client]),
-      worker(Brain.Karma, [])
+      worker(Brain.Karma, []),
+      worker(Bot.Markov, [client]),
+      worker(Brain.Markov, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
