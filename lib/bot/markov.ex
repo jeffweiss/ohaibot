@@ -7,13 +7,14 @@ defmodule Bot.Markov do
   end
 
   def init([client]) do
+    :random.seed(:erlang.now)
     ExIrc.Client.add_handler client, self
     {:ok, client}
   end
 
   def handle_info({:received, <<"markov "::utf8, start_word::bitstring>>, _from, channel}, client) do
     debug("markov bot producing phrase that starts with " <> start_word)
-    phrase = Brain.Markov.generate_phrase(start_word)
+    phrase = Brain.Markov.generate_phrase(start_word, 10 + :random.uniform(10))
     ExIrc.Client.msg client, :privmsg, channel, phrase
     {:noreply, client}
   end

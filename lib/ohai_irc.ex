@@ -16,7 +16,7 @@ defmodule OhaiIrc do
       worker(Bot.Karma, [client]),
       worker(Brain.Karma, []),
       worker(Bot.Markov, [client]),
-      worker(Brain.Markov, [])
+      worker(Brain.Markov, ["data/markov"])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
