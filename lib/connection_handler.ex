@@ -36,6 +36,9 @@ defmodule ConnectionHandler do
     {:noreply, state}
   end
 
+  defp client_pid(%{client: client}) when is_pid(client), do: client
+  defp client_pid(%{client: client}), do: Process.whereis(client)
+
   defp debug(msg) do
     IO.puts IO.ANSI.yellow() <> msg <> IO.ANSI.reset()
   end

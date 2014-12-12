@@ -1,4 +1,5 @@
 defmodule Brain.Markov do
+  alias Brain.Markov.Ngram
   use GenServer
 
   def start_link(initial_state \\ []) do
@@ -7,7 +8,7 @@ defmodule Brain.Markov do
 
   def init(seed_directories) do
     :random.seed(:erlang.now)
-    dictionary = HashDict.new
+    dictionary = Ngram.new
                  |> populate_with_files_in_directories(seed_directories)
     {:ok, dictionary}
   end
@@ -42,8 +43,7 @@ defmodule Brain.Markov do
     |> Stream.map(&String.strip/1)
     |> Enum.to_list
     |> consolidate_paragraphs([])
-    |> IO.inspect
-    |> Enum.reduce(dictionary, fn(line, d) -> _parse(d, line) end)
+    |> Enum.reduce(dictionary, fn(line, d) -> Ngram.parse(d, line) end)
   end
 
   defp consolidate_paragraphs([], accumulator) do
@@ -66,58 +66,26 @@ defmodule Brain.Markov do
     GenServer.cast __MODULE__, {:parse, string}
   end
 
-  def generate_phrase(start_word, word_count \\ 10) do
+  def generate_phrase(word_count \\ 20) when is_number(word_count) do
+    GenServer.call __MODULE__, {:generate_phrase, word_count}
+  end
+
+  def generate_phrase(start_word, word_count) when is_binary(start_word) do
     GenServer.call __MODULE__, {:generate_phrase, start_word, word_count}
   end
 
   def handle_cast({:parse, string}, dictionary) do
-    {:noreply, _parse(dictionary, string)}
+    {:noreply, Ngram.parse(dictionary, string)}
   end
 
-  def handle_call({:generate_phrase, start_word, word_count}, _from, dictionary) do
-    phrase = generate_words(dictionary, start_word, word_count, [start_word])
+  def handle_call({:generate_phrase, word_count}, _from, dictionary) do
+    phrase = Ngram.generate_words(dictionary, word_count)
     {:reply, phrase, dictionary}
   end
 
-  defp _parse(dictionary, source) when is_binary(source) do
-    _parse(dictionary, String.split(source))
-  end
-
-  defp _parse(dictionary, [word1, word2|rest]) do
-    value = Dict.get(dictionary, word1, [])
-    dictionary = Dict.put(dictionary, word1, [word2|value])
-    _parse(dictionary, [word2|rest])
-  end
-
-  defp _parse(dictionary, [single]) do
-    value = Dict.get(dictionary, single, [])
-    Dict.put(dictionary, single, [:stop|value])
-  end
-
-  defp next(dictionary, word) do
-    Dict.get(dictionary, word)
-  end
-
-  defp get_word(dictionary, start_word) do
-    case next(dictionary, start_word) do
-      nil -> nil
-      list -> list |> Enum.shuffle |> hd
-    end
-  end
-
-  defp generate_words(dictionary, start_word, _num_words, [:stop|generated_words]) do
-    generate_words(dictionary, start_word, 0, generated_words)
-  end
-
-  defp generate_words(_dictionary, _start_word, 0, generated_words) do
-    generated_words
-    |> Enum.reverse
-    |> Enum.join(" ")
-  end
-
-  defp generate_words(dictionary, start_word, num_words, generated_words) do
-    new_word = get_word(dictionary, start_word)
-    generate_words(dictionary, new_word, num_words - 1, [new_word|generated_words])
+  def handle_call({:generate_phrase, start_word, word_count}, _from, dictionary) do
+    phrase = Ngram.generate_words(dictionary, word_count, String.split(start_word) |> Enum.reverse)
+    {:reply, phrase, dictionary}
   end
 
   defp debug(msg) do

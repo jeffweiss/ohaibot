@@ -6,17 +6,10 @@ defmodule OhaiIrc do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
-    {:ok, client} = ExIrc.start_client!
-
     children = [
       # Define workers and child supervisors to be supervised
-      worker(ConnectionHandler, [client]),
-      worker(LoginHandler, [client, ["#ohaibot-testing"]]),
-      worker(Bot.Ohai, [client]),
-      worker(Bot.Karma, [client]),
-      worker(Brain.Karma, []),
-      worker(Bot.Markov, [client]),
-      worker(Brain.Markov, ["data/markov"])
+      supervisor(Supervisor.Connection, []),
+      supervisor(Supervisor.Brain, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
