@@ -12,7 +12,7 @@ defmodule OhaiIrc.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :exirc],
+    [applications: [:logger, :exirc, :httpoison],
      mod: {OhaiIrc, []}]
   end
 
@@ -26,6 +26,7 @@ defmodule OhaiIrc.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:exirc, "0.9.0"}]
+    [{:exirc, "0.9.0"},
+     {:exgenius, "~> 0.0.1"}]
   end
 end
