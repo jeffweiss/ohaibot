@@ -10,7 +10,8 @@ defmodule Supervisor.Bot do
       worker(Bot.Ohai, [client_name]),
       worker(Bot.Karma, [client_name]),
       worker(Bot.Sing, [client_name]),
-      worker(Bot.Markov, [client_name])
+      worker(Bot.Markov, [client_name]),
+      worker(Bot.Nope, [client_name])
       ]
     supervise(children, strategy: :one_for_one)
   end
