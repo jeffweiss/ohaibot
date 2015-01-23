@@ -3,3 +3,6 @@
 erl_crash.dump
 *.ez
 data/*
+.tmp/
+modules/
+.vagrant
