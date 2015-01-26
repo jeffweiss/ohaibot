@@ -11,6 +11,15 @@ defmodule Bot.Wrong do
     {:ok, client}
   end
 
+  def handle_info({:received, msg, "brittbot", channel}, client) do
+    captures = Regex.named_captures(~r/(?<person>.*): Incorrect answer./, msg)
+    case captures do
+      nil -> nil
+      _ -> send_wrong(client, channel)
+    end
+    {:noreply, client}
+  end
+
   def handle_info({:received, <<"wrong"::utf8, _::bitstring>>, _from, channel}, client) do
     send_wrong(client, channel)
     {:noreply, client}
@@ -23,7 +32,6 @@ defmodule Bot.Wrong do
 
   # Catch-all for messages you don't care about
   def handle_info(_msg, state) do
-    debug(_msg)
     {:noreply, state}
   end
 
