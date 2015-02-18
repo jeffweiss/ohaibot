@@ -12,7 +12,7 @@ defmodule Bot.Nope do
   end
 
   def handle_info({:received, <<"nope.jpg"::utf8>>, _from, channel}, client) do
-    ExIrc.Client.msg client, :privmsg, channel, "http://i.imgur.com/F02COpJ.jpg"
+    ExIrc.Client.msg client, :privmsg, channel, random_nope
     {:noreply, client}
   end
 
@@ -20,6 +20,17 @@ defmodule Bot.Nope do
   def handle_info(_msg, state) do
     {:noreply, state}
   end
+
+  def random_nope do
+    [
+      "https://pbs.twimg.com/media/B-JwCV6CAAAJ1Rl.png",
+      "http://i.imgur.com/F02COpJ.jpg"
+    ]
+    |> Enum.shuffle
+    |> hd
+  end
+   
+
 
   defp debug(msg) do
     IO.puts IO.ANSI.yellow() <> msg <> IO.ANSI.reset()
