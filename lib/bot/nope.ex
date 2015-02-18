@@ -7,8 +7,14 @@ defmodule Bot.Nope do
   end
 
   def init([client]) do
+    :random.seed(:erlang.now)
     ExIrc.Client.add_handler client, self
     {:ok, client}
+  end
+
+  def handle_info({:received, <<"nope.avi"::utf8>>, _from, channel}, client) do
+    ExIrc.Client.msg client, :privmsg, channel, "https://www.youtube.com/watch?v=gvdf5n-zI14"
+    {:noreply, client}
   end
 
   def handle_info({:received, <<"nope.jpg"::utf8>>, _from, channel}, client) do
