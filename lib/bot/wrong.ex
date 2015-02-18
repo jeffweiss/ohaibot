@@ -7,15 +7,16 @@ defmodule Bot.Wrong do
   end
 
   def init([client]) do
+    :random.seed(:erlang.now)
     ExIrc.Client.add_handler client, self
     {:ok, client}
   end
 
   def handle_info({:received, msg, "brittbot", channel}, client) do
-    captures = Regex.named_captures(~r/(?<person>.*): Incorrect answer./, msg)
+    captures = Regex.named_captures(~r/(?<person>.*): (Incorrect answer|Wrong)./, msg)
     case captures do
       nil -> nil
-      _ -> send_wrong(client, channel)
+      _ -> if :random.uniform(10) == 1, do: send_wrong(client, channel, captures["person"])
     end
     {:noreply, client}
   end
@@ -35,8 +36,14 @@ defmodule Bot.Wrong do
     {:noreply, state}
   end
 
-  defp send_wrong(client, person_or_channel) do
-    ExIrc.Client.msg client, :privmsg, person_or_channel, "https://pbs.twimg.com/media/B6sl-PDCUAAMFy5.jpg"
+  defp send_wrong(client, channel, person \\ nil) do
+    message_prefix = case person do
+      nil -> ""
+      _ -> "#{person}: "
+    end
+    message = message_prefix <> "https://pbs.twimg.com/media/B6sl-PDCUAAMFy5.jpg"
+    
+    ExIrc.Client.msg client, :privmsg, channel, message
   end
 
 
