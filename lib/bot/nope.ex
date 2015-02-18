@@ -24,7 +24,8 @@ defmodule Bot.Nope do
   def random_nope do
     [
       "https://pbs.twimg.com/media/B-JwCV6CAAAJ1Rl.png",
-      "http://i.imgur.com/F02COpJ.jpg"
+      "http://i.imgur.com/F02COpJ.jpg",
+      "https://pbs.twimg.com/media/B-Jx1cmCIAAkPrV.png"
     ]
     |> Enum.shuffle
     |> hd
