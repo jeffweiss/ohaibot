@@ -12,6 +12,7 @@ defmodule Supervisor.Bot do
       worker(Bot.Sing, [client_name]),
       worker(Bot.Markov, [client_name]),
       worker(Bot.Nope, [client_name]),
+      worker(Bot.Soon, [client_name]),
       worker(Bot.Wrong, [client_name])
       ]
     supervise(children, strategy: :one_for_one)
