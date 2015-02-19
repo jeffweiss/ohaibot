@@ -8,10 +8,8 @@ FORGE
     puppetlabs-concat (1.1.2)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-stdlib (4.5.1)
-    puppetlabs-vcsrepo (1.2.0)
 
 DEPENDENCIES
   hunner-charybdis (>= 0)
   puppetlabs-apt (>= 0)
-  puppetlabs-vcsrepo (>= 0)
 

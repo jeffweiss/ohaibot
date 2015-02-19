@@ -13,7 +13,6 @@ forge "https://forgeapi.puppetlabs.com"
 # mod 'puppetlabs-stdlib'
 mod 'hunner-charybdis'
 mod 'puppetlabs-apt'
-mod 'puppetlabs-vcsrepo'
 
 # A module from git
 # mod 'puppetlabs-ntp',
