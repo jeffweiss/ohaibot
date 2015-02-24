@@ -24,3 +24,10 @@ class charybdis::vagrant inherits charybdis {
 }
 
 include charybdis::vagrant
+
+notify { "$::ipaddress": }
+
+file { '/vagrant/ohaibot.conf':
+  ensure => file,
+  content => "{host, <<\"$::ipaddress\">>}.\n{port, 6667}.\n{nick, <<\"ohaibot\">>}.\n{pass, <<\"ohaipassword\">>}.\n{user, <<\"ohaibot\">>}.\n{name, <<\"ohaibot welcomes you\">>}.",
+}
