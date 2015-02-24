@@ -17,3 +17,8 @@ package { 'elixir':
   ensure => latest,
   require => Apt::Source['erlang-solutions'],
 }
+
+# This is required for any mix dependencies on github
+package { 'git':
+  ensure => latest,
+}
