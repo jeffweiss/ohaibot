@@ -1,8 +1,8 @@
 %{"exgenius": {:hex, :exgenius, "0.0.4"},
-  "exirc": {:hex, :exirc, "0.9.0"},
+  "exirc": {:git, "git://github.com/bitwalker/exirc.git", "1b832dabd2cecd73b41f867f521436c4f3a202fc", []},
   "exjsx": {:hex, :exjsx, "3.1.0"},
   "hackney": {:hex, :hackney, "1.0.6"},
-  "httpoison": {:hex, :httpoison, "0.6.0"},
+  "httpoison": {:hex, :httpoison, "0.6.2"},
   "idna": {:hex, :idna, "1.0.2"},
   "jsx": {:hex, :jsx, "2.4.0"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.1"}}
