@@ -12,7 +12,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "puppetlabs/ubuntu-14.04-64-puppet"
 
-  config.vm.network "public_network"
+  config.vm.network :public_network
+
+  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: [".git/", "_build/"]
 
   config.vm.define "ohaibot", primary: true do |node|
     node.vm.provision "puppet" do |puppet|

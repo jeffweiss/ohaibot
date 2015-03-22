@@ -20,5 +20,8 @@ package { 'elixir':
 
 # This is required for any mix dependencies on github
 package { 'git':
-  ensure => latest,
+  ensure => "1:1.9.1-1",
 }
+
+notify {"$::ipaddress_eth0":}
+notify {"$::ipaddress_eth1":}
