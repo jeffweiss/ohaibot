@@ -7,7 +7,7 @@ defmodule Brain.Markov do
   end
 
   def init(seed_directories) do
-    :random.seed(:erlang.now)
+    :random.seed(:os.timestamp)
     dictionary = Ngram.new
                  |> populate_with_files_in_directories(seed_directories)
     {:ok, dictionary}

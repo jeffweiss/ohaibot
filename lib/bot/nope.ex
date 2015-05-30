@@ -7,7 +7,7 @@ defmodule Bot.Nope do
   end
 
   def init([client]) do
-    :random.seed(:erlang.now)
+    :random.seed(:os.timestamp)
     ExIrc.Client.add_handler client, self
     {:ok, client}
   end
@@ -36,7 +36,7 @@ defmodule Bot.Nope do
     |> Enum.shuffle
     |> hd
   end
-   
+
 
 
   defp debug(msg) do
