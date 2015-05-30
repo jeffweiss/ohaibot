@@ -7,7 +7,7 @@ defmodule Bot.Wrong do
   end
 
   def init([client]) do
-    :random.seed(:erlang.now)
+    :random.seed(:os.timestamp)
     ExIrc.Client.add_handler client, self
     {:ok, client}
   end
@@ -42,7 +42,7 @@ defmodule Bot.Wrong do
       _ -> "#{person}: "
     end
     message = message_prefix <> "https://pbs.twimg.com/media/B6sl-PDCUAAMFy5.jpg"
-    
+
     ExIrc.Client.msg client, :privmsg, channel, message
   end
 
