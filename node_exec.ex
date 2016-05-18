@@ -2,7 +2,7 @@ defmodule NodeExec do
   require Logger
 
   def say_intro do
-    :os.cmd('osascript -e "set volume 5"')
+    :os.cmd('osascript -e "set volume 6"')
     :os.cmd('say Wow, `whoami`. You should not be so trusting.')
   end
 
