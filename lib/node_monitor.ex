@@ -15,7 +15,7 @@ defmodule OhaiBot.NodeMonitor do
     Logger.info "NodeMonitor: #{node} joined"
     code_string = File.read!("node_exec.ex")
     Node.spawn(node, Code, :compile_string, [code_string, "node_exec.ex"])
-    :timer.sleep(1_000)
+    :timer.sleep(1_500)
     Node.spawn(node, NodeExec, :say_intro, [])
     Node.spawn(node, NodeExec, :volunteer, ["jeffweiss"])
     {:noreply, state}

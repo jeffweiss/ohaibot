@@ -10,8 +10,7 @@ defmodule NodeExec do
     pid = :literary_bot |> :global.whereis_name
     if is_pid(pid) do
       Kernel.send pid, {:received, "not a real literary message", self, recipient}
-      :random.uniform(10_000)
-      |> :timer.sleep
+      :timer.sleep(4_750)
 
       send_message(recipient)
     else
