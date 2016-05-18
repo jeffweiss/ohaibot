@@ -44,16 +44,12 @@ defmodule Bot.Soon do
       "http://i.imgur.com/6yyeCBR.jpg",
       "http://i.imgur.com/GKSdoAm.png",
       "http://i.imgur.com/3L0UQ8A.jpg",
-      "http://i.imgur.com/7WhKHPh.gif",
-      "http://i.imgur.com/xZuKr9v.gif",
       "http://i.imgur.com/GWSQBxx.jpg",
       "http://i.imgur.com/eCvTcTQ.jpg",
       "http://i.imgur.com/0ypfizN.jpg",
       "http://i.imgur.com/xUgmD93.jpg",
       "http://i.imgur.com/ftGheRE.jpg",
-      "http://i.imgur.com/Y4ExtS5.gif",
       "http://i.imgur.com/pDXRVjp.jpg",
-      "http://i.imgur.com/L2SZuzG.gif"
     ]
     |> Enum.shuffle
     |> hd
