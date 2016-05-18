@@ -3,13 +3,17 @@ defmodule Bot.Markov do
   This is an example event handler that greets users when they join a channel
   """
   def start_link(client) do
-    GenServer.start_link(__MODULE__, [client])
+    GenServer.start_link(__MODULE__, [client], name: __MODULE__)
   end
 
   def init([client]) do
     :random.seed(:os.timestamp)
     ExIrc.Client.add_handler client, self
     {:ok, client}
+  end
+
+  def markov(string, channel) do
+    send(__MODULE__, {:received, "markov " <> string, self, channel})
   end
 
   def handle_info({:received, <<"markov "::utf8, start_word::bitstring>>, _from, channel}, client) do
@@ -26,7 +30,7 @@ defmodule Bot.Markov do
   end
 
   def handle_info({:mentioned, _message, _from, channel}, client) do
-    starting_phrase = ["I think", "I am", "I know", "I heard", "I read", "you don't", "you should", "people should", "sometimes I"] |> Enum.shuffle |> hd
+    starting_phrase = ["I think", "I am", "I know", "I read", "you don't", "you should" ] |> Enum.shuffle |> hd
     ExIrc.Client.msg client, :privmsg, channel, Brain.Markov.generate_phrase(starting_phrase, 15 + :random.uniform(10))
     {:noreply, client}
   end
