@@ -63,7 +63,7 @@ defmodule Bot.Literary do
 
   # Catch-all for messages you don't care about
   def handle_info(_msg, state) do
-    Logger.debug _msg
+    Logger.debug "#{inspect _msg}"
     {:noreply, state}
   end
 
