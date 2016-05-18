@@ -1,6 +1,10 @@
 # Chat Bot: A Practical Walkthrough of the Powerful Features of Erlang/Elixir/OTP
 
-# Who am I
+I know what you're thinking, "OMG, that is the longest. title. ever. I'm already
+bored."
+
+# Beware: Live Demos
+Don't worry. I have live demos ahead, and those *never* go wrong.
 
 # Why did I do this?
 I'm a beginner with Erlang and Elixir. 
@@ -14,9 +18,10 @@ Almost no books and tutorials follow this path.
 Only after I had started down this path (and submitted the conf proposal) did
 I start Sasa's Elixir in Action. So if you like my talk, read Sasa's book, he
 does it far better.
-Oh, also, at work we use a fork of Hubot. I depise Node, plus whenever there's
-a problem with additional functionality, the entire bot dies a fiery death
-rather than just the bit of new functionality.
+Oh, also, at work we use a fork of Hubot. Regardless of whatever my feelings of
+Node, whenever there's a problem with additional functionality, the entire bot
+dies a fiery death rather than just the bit of new functionality. It's a
+situation just begging for the concurrency and isolation of Erlang.
 
 # 
 When I think about idiomatic Erlang or Elixir, a few things come to mind as
