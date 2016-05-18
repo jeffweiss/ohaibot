@@ -31,7 +31,7 @@ defmodule Bot.Karma do
       |> List.first
       |> String.downcase
     function = if operator == "++", do: &Brain.Karma.increment/1, else: &Brain.Karma.decrement/1
-    ExIrc.Client.msg client, :notice, channel, "karma for #{subject} is now #{function.(subject)}"
+    ExIrc.Client.msg client, :notice, channel, "points for #{subject}: #{function.(subject)}"
     process_karma_list(rest, channel, client)
   end
 end
